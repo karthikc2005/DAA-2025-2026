@@ -1,0 +1,40 @@
+#include <stdio.h>
+int a[10][10],v[10],n;
+
+void dfs(int x) {
+    int i;
+    printf("%d ",x);
+    v[x]=1;
+    for(i=0;i<n;i++)
+        if(a[x][i]&&!v[i]) dfs(i);
+}
+
+void bfs(int s) {
+    int q[10],f=0,r=0,i;
+    for(i=0;i<n;i++) v[i]=0;
+    q[r++]=s;
+    v[s]=1;
+    while(f<r) {
+        s=q[f++];
+        printf("%d ",s);
+        for(i=0;i<n;i++)
+            if(a[s][i]&&!v[i])
+                q[r++]=i,v[i]=1;
+    }
+}
+
+int main() {
+    int i,j,s;
+    printf("Enter vertices: ");
+    scanf("%d",&n);
+    printf("Enter adjacency matrix:\n");
+    for(i=0;i<n;i++)
+        for(j=0;j<n;j++) scanf("%d",&a[i][j]);
+    printf("Enter start vertex: ");
+    scanf("%d",&s);
+    printf("DFS: ");
+    dfs(s);
+    printf("\nBFS: ");
+    bfs(s);
+    return 0;
+}
